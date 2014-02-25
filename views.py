@@ -10,11 +10,19 @@ class PostList(MethodView):
         filters = {
             'published': True,
             'available_at__lte': datetime.now(),   
-            'show_on_channel': True
+            'show_on_channel': True,
+            'model': 'posts.post'
         }
-        print '1'
         contents = Content.objects().filter(**filters)
-        print contents
+        
+        posts = []
+        for content in contents:
+
+            post = {
+                'title': content.title,
+                'image': content.get_main_image_url()
+            }
+
         
         return 'hehe'
         
